@@ -44,3 +44,25 @@ server {
     }
 }
 ```
+
+* `server` 블록
+  * `listen` : 어떤 URI/포트의 요청을 이 사이트로 넘길 것인지를 선언한다.
+  * `server_name` :  Host Header가  담고 있는 필드값과 일치한 도메인명을 가진    요청에 대해서만 허용하게 할 수 있다. wild card 와 정규 표현식 모두 이용 가능하다.
+  * `root` : static file이 있는 파일 시스템의 경로이다.
+  * `location` 블록: 경로에 따라 요청을 어떻게 처리할 지 결정할 수 있다. static file을 보여주거나 프록시 서버로 요청을 전송할 수 있다. 아래 예제와 같이 설정하면 `/songdo` path로 요청하는 경우 localhost의 3000번 포트로 연결해주는 것이다.
+
+이렇게 설정 파일을 생성하고 `/etc/nginx/sites-enabled` 를 타겟으로 심볼릭 링크를 생성한다. 이로서 설정 파일을 활성화 한 것이다. 아래는 심볼릭 링크 생성을 포함해 nginx를 재시작하는 예제이다.
+
+```bash
+ln -s /etc/nginx/sites-available/{conf_file} /etc/nginx/sites-enabled/
+```
+
+{% code title="/etc/nginx/nginx.conf" %}
+```
+ # server_names_hash_bucket_size 64; (# 제거)
+ # include /etc/nginx/conf.d/*.conf; (# 추가)
+include /etc/nginx/sites-enabled/{conf_file};
+```
+{% endcode %}
+
+이렇게 설정하면 이 사이트의 루트로 접속하면 스태틱 파일을, /songdo 로 접속하면 백엔드 서버 등 다른 웹서버로 연결을 포워딩하게 된다. 이렇게 세팅한 후 리액트 프로젝트를 세팅하고 스태틱 페이지로 빌드해도 되고, express 등 서버를 구동시켜 놓을 수도 있다.&#x20;
