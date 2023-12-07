@@ -108,3 +108,16 @@ docker attach mycentos
 
 표준 출력/에러 스트림의 로그가 별도의 파일에 저장되며, `docker log {container_id_or_name}` 명령을 이용해 확인 가능하다.
 
+### Docker Hub
+
+Github와 같이 도커 컨테이너 이미지를 저장하는 저장소로, 도커에서 기본적으로 제공하므로 아래 명령어를 이용해 이용할 수 있다.
+
+* &#x20;`docker search {image_name}` : 이미지를 검색한다.
+* `docker commit {container_name} {image_name}:{tag}`
+  * `-a {author}` : 이미지 만든 사람
+  * `-m {message}` : 커밋 메시지
+* `docker push {author}/{image_name}:{tag}` : 커밋 내용 저장소에 푸시
+* `docker pull {author}/{image_name}:{tag}` : Docker hub 저장소에서 이미지 다운로드
+* `docker inspect {image_name}:{tag}` : 이미지의 레이어를 해시값과 함께 확인할 수 있다.
+* `docker history {image_name}:{tag}` : 이미지의 히스토리를 확인할 수 있다.
+* `docker rmi {image_name}:{tag}` : 이미지 삭제
