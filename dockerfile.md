@@ -100,4 +100,4 @@ networks:
 * `docker-compose restart` : 서비스 컨테이너 재시작
 * `docker-compose up` : 프로젝트의 컨테이너 모두 시작
   * `-p {project_name}` : 프로젝트 이름을 명시하면서 시작
-  * `-d` : 백그라운드
+  * `-d` : 백그라운드에서 실행
